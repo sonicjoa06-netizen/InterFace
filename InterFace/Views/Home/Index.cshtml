@@ -1,8 +1,105 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model Cliente
+@{
+    ViewData["Title"] = "Clientes";
+    var clientes = ViewBag.Clientes as List<Cliente> ?? new List<Cliente>();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="page-shell">
+    <div class="page-heading">
+        <div>
+            <p class="eyebrow">ASP.NET Core + MySQL</p>
+            <h1>Cadastro de clientes</h1>
+        </div>
+        <span class="status-pill">@clientes.Count cliente@(clientes.Count == 1 ? "" : "s")</span>
+    </div>
+
+    @if (TempData["Mensagem"] is string mensagem)
+    {
+        <div class="alert alert-success" role="alert">@mensagem</div>
+    }
+
+    @if (ViewBag.ErroBanco is string erroBanco)
+    {
+        <div class="alert alert-warning" role="alert">@erroBanco</div>
+    }
+
+    @if (TempData["ErroBanco"] is string erroSalvar)
+    {
+        <div class="alert alert-warning" role="alert">@erroSalvar</div>
+    }
+
+    <div class="workspace-grid">
+        <section class="panel">
+            <h2>Novo cliente</h2>
+            <form asp-action="Criar" method="post" class="client-form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <label asp-for="Nome"></label>
+                <input asp-for="Nome" class="form-control" placeholder="Nome completo" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" placeholder="email@exemplo.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <label asp-for="Telefone"></label>
+                <input asp-for="Telefone" class="form-control" placeholder="(00) 00000-0000" />
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+
+                <label asp-for="Cidade"></label>
+                <input asp-for="Cidade" class="form-control" placeholder="Cidade" />
+                <span asp-validation-for="Cidade" class="text-danger"></span>
+
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </form>
+        </section>
+
+        <section class="panel client-list">
+            <h2>Clientes cadastrados</h2>
+
+            @if (clientes.Count == 0)
+            {
+                <div class="empty-state">
+                    Nenhum cliente cadastrado ainda.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Cidade</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cliente in clientes)
+                            {
+                                <tr>
+                                    <td>@cliente.Nome</td>
+                                    <td>@cliente.Email</td>
+                                    <td>@(string.IsNullOrWhiteSpace(cliente.Telefone) ? "-" : cliente.Telefone)</td>
+                                    <td>@(string.IsNullOrWhiteSpace(cliente.Cidade) ? "-" : cliente.Cidade)</td>
+                                    <td class="text-end">
+                                        <form asp-action="Remover" method="post">
+                                            <input type="hidden" name="id" value="@cliente.Id" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Remover</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </section>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

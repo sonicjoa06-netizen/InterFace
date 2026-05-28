@@ -8,15 +8,163 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 html {
-  position: relative;
   min-height: 100%;
 }
 
 body {
+  min-height: 100vh;
   margin-bottom: 60px;
+  background: #f4f7fb;
+  color: #18202f;
+}
+
+.navbar {
+  border: 0;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.page-shell {
+  padding: 24px 0 40px;
+}
+
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.page-heading h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 800;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #2f6f73;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.status-pill {
+  flex: 0 0 auto;
+  border: 1px solid #b8d9d7;
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: #e7f4f2;
+  color: #23575a;
+  font-weight: 700;
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.panel {
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  padding: 22px;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(25, 38, 61, 0.08);
+}
+
+.panel h2 {
+  margin: 0 0 18px;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.client-form {
+  display: grid;
+  gap: 8px;
+}
+
+.client-form label {
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.client-form .btn {
+  margin-top: 14px;
+  min-height: 44px;
+  font-weight: 700;
+}
+
+.btn-primary {
+  border-color: #2f6f73;
+  background: #2f6f73;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  border-color: #285e61;
+  background: #285e61;
+}
+
+.form-control {
+  min-height: 42px;
+  border-color: #cbd7e3;
+}
+
+.form-control:focus {
+  border-color: #2f6f73;
+  box-shadow: 0 0 0 0.2rem rgba(47, 111, 115, 0.18);
+}
+
+.client-list {
+  min-width: 0;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  color: #5c6a7d;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.empty-state {
+  border: 1px dashed #bac7d6;
+  border-radius: 8px;
+  padding: 28px;
+  background: #f8fbfd;
+  color: #64748b;
+  text-align: center;
+}
+
+.alert {
+  border-radius: 8px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+@media (max-width: 900px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
